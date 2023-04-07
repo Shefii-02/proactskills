@@ -31,15 +31,27 @@ Route::get('/confirm', 'FrontendController@confirm')->name('confirm');
 Route::get('/email', 'FrontendController@email')->name('email');
 
 
-Route::get('/admin', 'AdminendController@index')->name('home');
-Route::get('/home', 'FrontendController@index')->name('home');
+Route::get('/terms-of-service', 'FrontendController@terms_of_service')->name('terms-of-service');
 
-Route::get('admin/course', 'AdminendController@course')->name('course');
-Route::get('admin/course-create', 'AdminendController@course_create')->name('course_create');
 
+
+Route::group(['prefix' => 'admin', 'middleware' => ['web','admin']], function(){
+
+    Route::get('/', 'AdminendController@index')->name('admin');
+    Route::get('course', 'AdminendController@course')->name('course');
+    Route::get('course-create', 'AdminendController@course_create')->name('course_create');
+
+});
+
+Route::controller(GoogleSocialiteController::class)->group(function(){
+    Route::get('auth/google', 'redirectToGoogle')->name('auth.google');
+    Route::get('auth/google/callback', 'handleGoogleCallback');
+});
 
 Auth::routes();
 
-Route::get('profile', 'BackendController@profile')->name('profile');
+Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
+    Route::get('profile', 'FrontendController@profile')->name('profile');
+});
 
 Route::get('/{course_name}', 'FrontendController@course')->name('courseq');

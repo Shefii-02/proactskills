@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class FrontendController extends Controller
 {
@@ -21,7 +22,12 @@ class FrontendController extends Controller
     }
 
     public function sign_in(){
-        return view('auth.sign-in');
+        if (Auth::check()) {
+            return redirect('/');
+        }
+        else{
+         return view('auth.sign-in');
+        }
     }
     public function sign_up(){
         return view('auth.sign-up');
@@ -37,53 +43,8 @@ class FrontendController extends Controller
         return view('auth.sign-in');
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+    public function profile(){
+        
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
-
+    
 }

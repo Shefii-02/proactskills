@@ -75,7 +75,11 @@
 								</li>
 								<!-- Links -->
 								<li> <hr class="dropdown-divider"></li>
+								@if(auth()->user()->type == 'admin')
+								<li><a class="dropdown-item" href="{{route('admin')}}"><i class="bi bi-person fa-fw me-2"></i>Dashboard</a></li>
+								@else
 								<li><a class="dropdown-item" href="{{route('profile')}}"><i class="bi bi-person fa-fw me-2"></i>Profile</a></li>
+								@endif
 								<li><a class="dropdown-item bg-danger-soft-hover" href="{{ route('logout') }}"
 									onclick="event.preventDefault();   document.getElementById('logout-form').submit();"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a>
 									<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

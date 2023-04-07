@@ -26,7 +26,7 @@
 												<input type="email" @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus class="form-control border-0 bg-light rounded-end ps-1" placeholder="E-mail" id="exampleInputEmail1">
 												@error('email')
 													<span class="invalid-feedback" role="alert">
-														<strong>{{ $message }}</strong>
+														<strong>{{ $errors->first('email')}}</strong>
 													</span>
 												@enderror
 											</div>
@@ -40,7 +40,7 @@
 											
 												@error('password')
 													<span class="invalid-feedback" role="alert">
-														<strong>{{ $message }}</strong>
+														<strong>{{ $errors->first('password')}}</strong>
 													</span>
 												@enderror
 											</div>
@@ -78,13 +78,10 @@
 										</div>
 
 										<!-- Social btn -->
-										<div class="col-xxl-6 d-grid">
-											<a href="#" class="btn bg-light mb-2 mb-xxl-0 text-dark"><img src="{{url('assets/images/google.svg')}}" class="fab fa-fw fa-google text-danger me-2">Continue with Google</a>
+										<div class="col-xxl-12 d-grid">
+											<a href="{{route('auth.google')}}" class="btn bg-light mb-2 mb-xxl-0 text-dark"><img src="{{url('assets/images/google.svg')}}" class="fab fa-fw fa-google text-danger me-2">Continue with Google</a>
 										</div>
-										<!-- Social btn -->
-										<div class="col-xxl-6 d-grid">
-											<a href="#" class="btn bg-facebook mb-0"><i class="fab fa-fw fa-facebook-f me-2"></i>Continue with Facebook</a>
-										</div>
+										
 									</div>
 
 									<!-- Sign up link -->

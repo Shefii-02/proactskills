@@ -293,7 +293,7 @@
 						<li class="nav-item ms-2 ms-md-3 dropdown">
 							<!-- Avatar -->
 							<a class="avatar avatar-sm p-0" href="#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
-								<img class="avatar-img rounded-circle" src="{{asset('assets/images/avatar/01.jpg')}}" alt="avatar">
+								<img class="avatar-img rounded-circle" src="{{auth()->user()->image ?? url("assets/images/avatar/01.jpg")}}" alt="avatar">
 							</a>
 
 							<!-- Profile dropdown START -->
@@ -303,17 +303,25 @@
 									<div class="d-flex align-items-center">
 										<!-- Avatar -->
 										<div class="avatar me-3 mb-3">
-											<img class="avatar-img rounded-circle shadow" src="{{asset('assets/images/avatar/01.jpg')}}" alt="avatar">
+											<img class="avatar-img rounded-circle shadow" src="{{auth()->user()->image ?? url("assets/images/avatar/01.jpg")}}" alt="avatar">
 										</div>
 										<div>
-											<a class="h6 mt-2 mt-sm-0" href="#">Lori Ferguson</a>
+											<a class="h6" href="#">{{auth()->user()->name}}</a>
+											<p class="small m-0">{{auth()->user()->email}}</p>
 										</div>
 									</div>
 								</li>
                 				<li> <hr class="dropdown-divider"></li>
+								<li><a class="dropdown-item" href="{{url('/')}}"><i class="bi bi-globe fa-fw me-2"></i>On Site</a></li>
 								<!-- Links -->
-								<li><a class="dropdown-item" href="#"><i class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
-								<li><a class="dropdown-item bg-danger-soft-hover" href="#"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
+								<li><a class="dropdown-item" href="{{url('admin/profile')}}"><i class="bi bi-person fa-fw me-2"></i>Profile</a></li>
+								<li>
+									<a class="dropdown-item bg-danger-soft-hover" href="{{ route('logout') }}"
+									onclick="event.preventDefault();   document.getElementById('logout-form').submit();"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a>
+									<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+										@csrf
+									</form>  
+								</li>
 								<li> <hr class="dropdown-divider"></li>
 
 								<!-- Dark mode options START -->
