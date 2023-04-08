@@ -15,8 +15,8 @@
 			<div class="d-flex justify-content-between align-items-center">
 				<!-- Digit -->
 				<div>
-					<h2 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="1958" data-purecounter-delay="200">0</h2>
-					<span class="mb-0 h6 fw-light">Completed Courses</span>
+					<h2 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="{{$activated_course}}" data-purecounter-delay="200">0</h2>
+					<span class="mb-0 h6 fw-light">Activated Courses</span>
 				</div>
 				<!-- Icon -->
 				<div class="icon-lg rounded-circle bg-warning text-white mb-0"><i class="fas fa-tv fa-fw"></i></div>
@@ -30,8 +30,8 @@
 			<div class="d-flex justify-content-between align-items-center">
 				<!-- Digit -->
 				<div>
-					<h2 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="1600"	data-purecounter-delay="200">0</h2>
-					<span class="mb-0 h6 fw-light">Enrolled Courses</span>
+					<h2 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="{{$students}}"	data-purecounter-delay="200">0</h2>
+					<span class="mb-0 h6 fw-light"> Students</span>
 				</div>
 				<!-- Icon -->
 				<div class="icon-lg rounded-circle bg-purple text-white mb-0"><i class="fas fa-user-tie fa-fw"></i></div>
@@ -45,8 +45,8 @@
 			<div class="d-flex justify-content-between align-items-center">
 				<!-- Digit -->
 				<div>
-					<h2 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="1235"	data-purecounter-delay="200">0</h2>
-					<span class="mb-0 h6 fw-light">Course In Progress</span>
+					<h2 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="{{$payemnts}}"	data-purecounter-delay="200">0</h2>
+					<span class="mb-0 h6 fw-light">Total Payment</span>
 				</div>
 				<!-- Icon -->
 				<div class="icon-lg rounded-circle bg-primary text-white mb-0"><i class="fas fa-user-graduate fa-fw"></i></div>
@@ -60,11 +60,9 @@
 			<div class="d-flex justify-content-between align-items-center">
 				<!-- Digit -->
 				<div>
-					<div class="d-flex">
-						<h2 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="845"	data-purecounter-delay="200">0</h2>
-						<span class="mb-0 h2 ms-1">hrs</span>
-					</div>
-					<span class="mb-0 h6 fw-light">Total Watch Time</span>
+					<h2 class="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="{{$registed}}"	data-purecounter-delay="200">0</h2>
+						
+					<span class="mb-0 h6 fw-light">Registed Courses</span>
 				</div>
 				<!-- Icon -->
 				<div class="icon-lg rounded-circle bg-success text-white mb-0"><i class="bi bi-stopwatch-fill fa-fw"></i></div>

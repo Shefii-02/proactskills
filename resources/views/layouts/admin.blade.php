@@ -91,8 +91,17 @@
 
 	<!-- Theme CSS -->
 	<link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}">
+	<link rel="stylesheet" type="text/css" 
+	href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+   
 
     @yield('styles')
+	<style>
+		.form-switch .form-check-input:checked {
+			background-color: rgba(38, 175, 52, 0.71);
+			border-color: rgb(200, 200, 200);
+		}
+	</style>
 </head>
 
 <body>
@@ -129,18 +138,17 @@
 					</a>
 					<!-- Submenu -->
 					<ul class="nav collapse flex-column" id="collapsepage" data-bs-parent="#navbar-sidebar">
-						<li class="nav-item"> <a class="nav-link" href="">All Courses</a></li>
-						<li class="nav-item"> <a class="nav-link" href="">Course Category</a></li>
-						<li class="nav-item"> <a class="nav-link" href="">Course Detail</a></li>
+						<li class="nav-item"> <a class="nav-link" href="{{url('admin/course-create')}}">Create Courses</a></li>
+						<li class="nav-item"> <a class="nav-link" href="{{url('admin/course')}}">All Courses</a></li>
 					</ul>
 				</li>
 
 				<!-- Menu item 3 -->
-				<li class="nav-item"> <a class="nav-link" href=""><i class="fas fa-user-graduate fa-fw me-2"></i>Students</a></li>
+				<li class="nav-item"> <a class="nav-link" href="{{url('admin/students')}}"><i class="fas fa-user-graduate fa-fw me-2"></i>Students</a></li>
 				<!-- Menu item 4 -->
-				<li class="nav-item"> <a class="nav-link" href=""><i class="fas fa-money-bill-alt fa-fw me-2"></i>Payment History</a></li>
+				<li class="nav-item"> <a class="nav-link" href="{{url('admin/payments')}}"><i class="fas fa-money-bill-alt fa-fw me-2"></i>Payment History</a></li>
 				<!-- Menu item 5 -->
-				<li class="nav-item"> <a class="nav-link" href=""><i class="fas fa-book fa-fw me-2"></i>Registred Courses</a></li>
+				<li class="nav-item"> <a class="nav-link" href="{{url('admin/registed-students')}}"><i class="fas fa-book fa-fw me-2"></i>Registred Courses</a></li>
 
 				
 			</ul>
@@ -397,6 +405,45 @@
 <!-- Template Functions -->
 <script src="{{asset('assets/js/functions.js')}}"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script>
+	@if(Session::has('message'))
+	toastr.options =
+	{
+		"closeButton" : true,
+		"progressBar" : true
+	}
+			toastr.success("{{ session('message') }}");
+	@endif
+  
+	@if(Session::has('error'))
+	toastr.options =
+	{
+		"closeButton" : true,
+		"progressBar" : true
+	}
+			toastr.error("{{ session('error') }}");
+	@endif
+  
+	@if(Session::has('info'))
+	toastr.options =
+	{
+		"closeButton" : true,
+		"progressBar" : true
+	}
+			toastr.info("{{ session('info') }}");
+	@endif
+  
+	@if(Session::has('warning'))
+	toastr.options =
+	{
+		"closeButton" : true,
+		"progressBar" : true
+	}
+			toastr.warning("{{ session('warning') }}");
+	@endif
+  </script>
 <script>
     CKEDITOR.replace( 'editor1' );
     CKEDITOR.replace( 'editor2' );

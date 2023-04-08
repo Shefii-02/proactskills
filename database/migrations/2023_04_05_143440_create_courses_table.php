@@ -18,14 +18,15 @@ return new class extends Migration
             $table->string('course_time')->nullable();
             $table->string('total_days')->nullable();
             $table->string('picture', 2048)->nullable();
-            $table->double('price')->nullable();
-            $table->double('discount_price')->nullable();
+            $table->string('price')->nullable();
+            $table->string('discount_price')->nullable();
             $table->boolean('enable_discount')->default(0)->nullable();
             $table->date('disc_exp_date')->nullable();
+            $table->string('level_course')->nullable();
             $table->string('banner_title')->nullable();
             $table->string('banner_sub_title')->nullable();
             $table->string('banner_short_description')->nullable();
-            $table->integer('banner_btn_color')->nullable();
+            $table->string('banner_btn_color')->nullable();
             $table->string('banner_text_color')->nullable();
             $table->string('banner_btn_text')->nullable();
             $table->string('banner_image')->nullable();

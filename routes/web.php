@@ -38,8 +38,23 @@ Route::get('/terms-of-service', 'FrontendController@terms_of_service')->name('te
 Route::group(['prefix' => 'admin', 'middleware' => ['web','admin']], function(){
 
     Route::get('/', 'AdminendController@index')->name('admin');
-    Route::get('course', 'AdminendController@course')->name('course');
-    Route::get('course-create', 'AdminendController@course_create')->name('course_create');
+    Route::get('course', 'AdminendController@course')->name('admin.course');
+    Route::get('course-create', 'AdminendController@course_create')->name('admin.course_create');
+    Route::post('course-create', 'AdminendController@course_store')->name('admin.course-create');
+
+    Route::get('course-edit/{id}', 'AdminendController@course_edit')->name('admin.course.edit');
+    Route::post('course-edit/{id}', 'AdminendController@course_update')->name('admin.course.update');
+    Route::get('course-delete/{id}', 'AdminendController@course_delete')->name('admin.course.delete');
+    
+    Route::get('students', 'AdminendController@students')->name('admin.students');
+    Route::get('payments', 'AdminendController@payments')->name('admin.payments');
+    Route::get('registed-students', 'AdminendController@registed_students')->name('admin.registed_students');
+    
+    Route::get('profile', 'AdminendController@profile')->name('admin.profile');
+    
+    
+    Route::post('profile', 'AdminendController@profile_update')->name('admin.profile-update');
+    
 
 });
 
@@ -50,8 +65,13 @@ Route::controller(GoogleSocialiteController::class)->group(function(){
 
 Auth::routes();
 
-Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
+Route::group(['middleware' => ['auth']], function(){
     Route::get('profile', 'FrontendController@profile')->name('profile');
+    Route::get('/payment', 'PaymentController@viewPayment');
+	
+    Route::post('/orderid-generate', 'PaymentController@orderIdGenerate');
+	
+    Route::post('/payment', 'PaymentController@storePayment');
 });
 
 Route::get('/{course_name}', 'FrontendController@course')->name('courseq');

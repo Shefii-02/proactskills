@@ -19,7 +19,7 @@ class AdminMiddleware
         $user = $request->user();
 
         if (! $user || $user->type != 'admin') {
-            return redirect('login');
+            return redirect('sign-in');
         }
 
         return $next($request);

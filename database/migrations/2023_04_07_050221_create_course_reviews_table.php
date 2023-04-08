@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->string('star')->nullable();
-            $table->boolean('status')->default(0);
+            $table->boolean('status')->default(1);
             $table->string('image', 2048)->nullable();
+            $table->string('course_id', 10)->nullable();   
             $table->timestamps();
         });
     }

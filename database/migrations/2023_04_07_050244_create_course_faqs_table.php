@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('question')->nullable();
             $table->string('answer')->nullable();
             $table->string('course_id')->nullable();
-            $table->boolean('status')->default(0);
+            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }

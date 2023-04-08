@@ -14,7 +14,7 @@
 			<div class="col-sm-6 col-lg-4">
 				<div class="text-center p-4 bg-primary bg-opacity-10 border border-primary rounded-3">
 					<h6>Total Courses</h6>
-					<h2 class="mb-0 fs-1 text-primary">1200</h2>
+					<h2 class="mb-0 fs-1 text-primary">{{$all_courses->count() ?? 0}}</h2>
 				</div>
 			</div>
 
@@ -22,7 +22,7 @@
 			<div class="col-sm-6 col-lg-4">
 				<div class="text-center p-4 bg-success bg-opacity-10 border border-success rounded-3">
 					<h6>Activated Courses</h6>
-					<h2 class="mb-0 fs-1 text-success">996</h2>
+					<h2 class="mb-0 fs-1 text-success">{{$active_courses ?? 0}}</h2>
 				</div>
 			</div>
 
@@ -30,7 +30,7 @@
 			<div class="col-sm-6 col-lg-4">
 				<div class="text-center p-4  bg-warning bg-opacity-15 border border-warning rounded-3">
 					<h6>Pending Courses</h6>
-					<h2 class="mb-0 fs-1 text-warning">200</h2>
+					<h2 class="mb-0 fs-1 text-warning">{{$in_active_courses ?? 0}}</h2>
 				</div>
 			</div>
 		</div>
@@ -58,11 +58,12 @@
 						<!-- Short by filter -->
 						<form>
 							<select class="form-select js-choice border-0 z-index-9" aria-label=".form-select-sm">
-								<option value="">Sort by</option>
-								<option>Newest</option>
-								<option>Oldest</option>
-								<option>Accepted</option>
-								<option>Rejected</option>
+							
+								<option value="">Sort by course level</option>
+								<option>All level</option>
+								<option>Beginner</option>
+								<option>Intermediate</option>
+								<option>Advance</option>
 							</select>
 						</form>
 					</div>
@@ -92,407 +93,67 @@
 						
 						<!-- Table body START -->
 						<tbody>
+							@foreach ($all_courses as $item)
 							
+								<!-- Table row -->
+								<tr>
+									<!-- Table data -->
+									<td>
+										<div class="d-flex align-items-center position-relative">
+											<!-- Image -->
+											<div class="w-60px">
+												<img src="{{asset('assets/images/pattern/gallery.svg')}}" class="rounded" alt="">
+											</div>
+											<!-- Title -->
+											<h6 class="table-responsive-title mb-0 ms-2">	
+												<a href="#" class="stretched-link">{{$item->course_name}}</a>
+											</h6>
+										</div>
+									</td>
+
+									<!-- Table data -->
+									<td>
+										<div class="d-flex align-items-center mb-3">
+											<!-- Avatar -->
+											<div class="avatar avatar-xs flex-shrink-0">
+												<img class="avatar-img rounded-circle" src="{{url('assets/images/avatar/01.jpg')}}" alt="avatar">
+											</div>
+											<!-- Info -->
+											<div class="ms-2">
+												<h6 class="mb-0 fw-light">{{$item->trainer_name}}</h6>
+											</div>
+										</div>
+									</td>
+								
+									<!-- Table data -->
+									<td>{{$item->updated_at->diffForHumans()}}</td>
+
+									<!-- Table data -->
+									<td> <span class="badge text-bg-primary">{{$item->level_course}}</span> </td>
+
+									<!-- Table data -->
+									<td>₹{{$item->price}}</td>
+
+									<!-- Table data -->
+									<td> 
+										<div class="form-check form-switch">
+											<input class="form-check-input text-success" type="checkbox" id="flexSwitchCheckChecked" checked>
+										  </div>
+									</td>
+
+									<!-- Table data -->
+									<td>
+										<a href=""  class="btn btn-sm btn-success-soft btn-round me-1 mb-1 mb-md-0"><i class="fa fa-eye"></i></a>
+										<a href="{{route('admin.course.edit',$item->id)}}"  class="btn btn-sm btn-info-soft btn-round me-1 mb-1 mb-md-0"><i class="fa fa-pen"></i></a>
+										<a href="{{route('admin.course.delete',$item->id)}}" class="btn btn-sm btn-danger-soft btn-round me-1 mb-1 mb-md-0"><i class="fa fa-times"></i></a>
+
+									</td>
+								</tr>
+	
+							@endforeach
 							<!-- Table row -->
-							<tr>
-								<!-- Table data -->
-								<td>
-									<div class="d-flex align-items-center position-relative">
-										<!-- Image -->
-										<div class="w-60px">
-											<img src="assets/images/courses/4by3/08.jpg" class="rounded" alt="">
-										</div>
-										<!-- Title -->
-										<h6 class="table-responsive-title mb-0 ms-2">	
-											<a href="#" class="stretched-link">Building Scalable APIs with GraphQL</a>
-										</h6>
-									</div>
-								</td>
-
-								<!-- Table data -->
-								<td>
-									<div class="d-flex align-items-center mb-3">
-										<!-- Avatar -->
-										<div class="avatar avatar-xs flex-shrink-0">
-											<img class="avatar-img rounded-circle" src="assets/images/avatar/09.jpg" alt="avatar">
-										</div>
-										<!-- Info -->
-										<div class="ms-2">
-											<h6 class="mb-0 fw-light">Lori Stevens</h6>
-										</div>
-									</div>
-								</td>
-
-								<!-- Table data -->
-								<td>28 Oct 2021</td>
-
-								<!-- Table data -->
-								<td> <span class="badge text-bg-primary">Beginner</span> </td>
-
-								<!-- Table data -->
-								<td>$350</td>
-
-								<!-- Table data -->
-								<td> <span class="badge bg-warning bg-opacity-15 text-warning">Pending</span> </td>
-
-								<!-- Table data -->
-								<td>
-									<a href="#" class="btn btn-sm btn-success-soft me-1 mb-1 mb-md-0">Approve</a>
-									<button class="btn btn-sm btn-secondary-soft mb-0">Reject</button>
-								</td>
-							</tr>
-
-							<!-- Table row -->
-							<tr>
-								<!-- Table data -->
-								<td>
-									<div class="d-flex align-items-center position-relative">
-										<!-- Image -->
-										<div class="w-60px">
-											<img src="assets/images/courses/4by3/10.jpg" class="rounded" alt="">
-										</div>
-										<!-- Title -->
-										<h6 class="table-responsive-title mb-0 ms-2">	
-											<a href="#" class="stretched-link">Bootstrap 5 From Scratch</a>
-										</h6>
-									</div>
-								</td>
-
-								<!-- Table data -->
-								<td>
-									<div class="d-flex align-items-center mb-3">
-										<!-- Avatar -->
-										<div class="avatar avatar-xs flex-shrink-0">
-											<img class="avatar-img rounded-circle" src="assets/images/avatar/04.jpg" alt="avatar">
-										</div>
-										<!-- Info -->
-										<div class="ms-2">
-											<h6 class="mb-0 fw-light">Billy Vasquez</h6>
-										</div>
-									</div>
-								</td>
-
-								<!-- Table data -->
-								<td>16 Oct 2021</td>
-
-								<!-- Table data -->
-								<td> <span class="badge text-bg-purple">Intermediate</span> </td>
-
-								<!-- Table data -->
-								<td>$256</td>
-
-								<!-- Table data -->
-								<td>
-									<span class="badge bg-warning bg-opacity-15 text-warning">Pending</span>
-								</td>
-
-								<!-- Table data -->
-								<td>
-									<a href="#" class="btn btn-sm btn-success-soft me-1 mb-1 mb-md-0">Approve</a>
-									<button class="btn btn-sm btn-secondary-soft mb-0">Reject</button>
-								</td>
-							</tr>
-
-							<!-- Table row -->
-							<tr>
-								<!-- Table data -->
-								<td>
-									<div class="d-flex align-items-center position-relative">
-										<!-- Image -->
-										<div class="w-60px">
-											<img src="assets/images/courses/4by3/02.jpg" class="rounded" alt="">
-										</div>
-										<!-- Title -->
-										<h6 class="table-responsive-title mb-0 ms-2">	
-											<a href="#" class="stretched-link">Graphic Design Masterclass</a>
-										</h6>
-									</div>
-								</td>
-
-								<!-- Table data -->
-								<td>
-									<div class="d-flex align-items-center mb-3">
-										<!-- Avatar -->
-										<div class="avatar avatar-xs flex-shrink-0">
-											<img class="avatar-img rounded-circle" src="assets/images/avatar/05.jpg" alt="avatar">
-										</div>
-										<!-- Info -->
-										<div class="ms-2">
-											<h6 class="mb-0 fw-light">Carolyn Ortiz</h6>
-										</div>
-									</div>
-								</td>
-
-								<!-- Table data -->
-								<td>28 Aug 2021</td>
-
-								<!-- Table data -->
-								<td> <span class="badge text-bg-orange">All level</span> </td>
-
-								<!-- Table data -->
-								<td>$347</td>
-
-								<!-- Table data -->
-								<td>
-									<span class="badge bg-success bg-opacity-15 text-success">Live</span>
-								</td>
-
-								<!-- Table data -->
-								<td>
-									<a href="#" class="btn btn-sm btn-dark me-1 mb-1 mb-md-0">Edit</a>
-								</td>
-							</tr>
-
-							<!-- Table row -->
-							<tr>
-								<!-- Table data -->
-								<td>
-									<div class="d-flex align-items-center position-relative">
-										<!-- Image -->
-										<div class="w-60px">
-											<img src="assets/images/courses/4by3/04.jpg" class="rounded" alt="">
-										</div>
-										<!-- Title -->
-										<h6 class="table-responsive-title mb-0 ms-2">	
-											<a href="#" class="stretched-link">Learn Invision</a>
-										</h6>
-									</div>
-								</td>
-
-								<!-- Table data -->
-								<td>
-									<div class="d-flex align-items-center mb-3">
-										<!-- Avatar -->
-										<div class="avatar avatar-xs flex-shrink-0">
-											<img class="avatar-img rounded-circle" src="assets/images/avatar/06.jpg" alt="avatar">
-										</div>
-										<!-- Info -->
-										<div class="ms-2">
-											<h6 class="mb-0 fw-light">Frances Guerrero</h6>
-										</div>
-									</div>
-								</td>
-
-								<!-- Table data -->
-								<td>15 June 2021</td>
-
-								<!-- Table data -->
-								<td> <span class="badge text-bg-orange">All level</span> </td>
-
-								<!-- Table data -->
-								<td>$445</td>
-
-								<!-- Table data -->
-								<td>
-									<span class="badge bg-success bg-opacity-15 text-success">Live</span>
-								</td>
-
-								<!-- Table data -->
-								<td>
-									<a href="#" class="btn btn-sm btn-dark me-1 mb-1 mb-md-0">Edit</a>
-								</td>
-							</tr>
-
-							<!-- Table row -->
-							<tr>
-								<!-- Table data -->
-								<td>
-									<div class="d-flex align-items-center position-relative">
-										<!-- Image -->
-										<div class="w-60px">
-											<img src="assets/images/courses/4by3/06.jpg" class="rounded" alt="">
-										</div>
-										<!-- Title -->
-										<h6 class="table-responsive-title mb-0 ms-2">	
-											<a href="#" class="stretched-link">Angular – The Complete Guider</a>
-										</h6>
-									</div>
-								</td>
-
-								<!-- Table data -->
-								<td>
-									<div class="d-flex align-items-center mb-3">
-										<!-- Avatar -->
-										<div class="avatar avatar-xs flex-shrink-0">
-											<img class="avatar-img rounded-circle" src="assets/images/avatar/07.jpg" alt="avatar">
-										</div>
-										<!-- Info -->
-										<div class="ms-2">
-											<h6 class="mb-0 fw-light">Louis Ferguson</h6>
-										</div>
-									</div>
-								</td>
-
-								<!-- Table data -->
-								<td>10 Dec 2020</td>
-
-								<!-- Table data -->
-								<td> <span class="badge text-bg-purple">Intermediate</span> </td>
-
-								<!-- Table data -->
-								<td>$165</td>
-
-								<!-- Table data -->
-								<td>
-									<span class="badge bg-success bg-opacity-15 text-success">Live</span>
-								</td>
-
-								<!-- Table data -->
-								<td>
-									<a href="#" class="btn btn-sm btn-dark me-1 mb-1 mb-md-0">Edit</a>
-								</td>
-							</tr>
-
-							<!-- Table row -->
-							<tr>
-								<!-- Table data -->
-								<td>
-									<div class="d-flex align-items-center position-relative">
-										<!-- Image -->
-										<div class="w-60px">
-											<img src="assets/images/courses/4by3/09.jpg" class="rounded" alt="">
-										</div>
-										<!-- Title -->
-										<h6 class="table-responsive-title mb-0 ms-2">	
-											<a href="#" class="stretched-link">JavaScript: Full Understanding</a>
-										</h6>
-									</div>
-								</td>
-
-								<!-- Table data -->
-								<td>
-									<div class="d-flex align-items-center mb-3">
-										<!-- Avatar -->
-										<div class="avatar avatar-xs flex-shrink-0">
-											<img class="avatar-img rounded-circle" src="assets/images/avatar/08.jpg" alt="avatar">
-										</div>
-										<!-- Info -->
-										<div class="ms-2">
-											<h6 class="mb-0 fw-light">Samuel Bishop</h6>
-										</div>
-									</div>
-								</td>
-
-								<!-- Table data -->
-								<td>09 Nov 2020</td>
-
-								<!-- Table data -->
-								<td> <span class="badge text-bg-primary">Beginner</span> </td>
-
-								<!-- Table data -->
-								<td>$575</td>
-
-								<!-- Table data -->
-								<td>
-									<span class="badge bg-success bg-opacity-15 text-success">Live</span>
-								</td>
-
-								<!-- Table data -->
-								<td>
-									<a href="#" class="btn btn-sm btn-dark me-1 mb-1 mb-md-0">Edit</a>
-								</td>
-							</tr>
-
-							<!-- Table row -->
-							<tr>
-								<!-- Table data -->
-								<td>
-									<div class="d-flex align-items-center position-relative">
-										<!-- Image -->
-										<div class="w-60px">
-											<img src="assets/images/courses/4by3/11.jpg" class="rounded" alt="">
-										</div>
-										<!-- Title -->
-										<h6 class="table-responsive-title mb-0 ms-2">	
-											<a href="#" class="stretched-link">Build Responsive Websites with HTML</a>
-										</h6>
-									</div>
-								</td>
-
-								<!-- Table data -->
-								<td>
-									<div class="d-flex align-items-center mb-3">
-										<!-- Avatar -->
-										<div class="avatar avatar-xs flex-shrink-0">
-											<img class="avatar-img rounded-circle" src="assets/images/avatar/02.jpg" alt="avatar">
-										</div>
-										<!-- Info -->
-										<div class="ms-2">
-											<h6 class="mb-0 fw-light">Dennis Barrett</h6>
-										</div>
-									</div>
-								</td>
-
-								<!-- Table data -->
-								<td>21 Aug 2020</td>
-
-								<!-- Table data -->
-								<td> <span class="badge text-bg-primary">Beginner</span> </td>
-
-								<!-- Table data -->
-								<td>$268</td>
-
-								<!-- Table data -->
-								<td>
-									<span class="badge bg-success bg-opacity-15 text-success">Live</span>
-								</td>
-
-								<!-- Table data -->
-								<td>
-									<a href="#" class="btn btn-sm btn-dark me-1 mb-1 mb-md-0">Edit</a>
-								</td>
-							</tr>
-
-							<!-- Table row -->
-							<tr>
-								<!-- Table data -->
-								<td>
-									<div class="d-flex align-items-center position-relative">
-										<!-- Image -->
-										<div class="w-60px">
-											<img src="assets/images/courses/4by3/12.jpg" class="rounded" alt="">
-										</div>
-										<!-- Title -->
-										<h6 class="table-responsive-title mb-0 ms-2">	
-											<a href="#" class="stretched-link">Build Websites with CSS</a>
-										</h6>
-									</div>
-								</td>
-
-								<!-- Table data -->
-								<td>
-									<div class="d-flex align-items-center mb-3">
-										<!-- Avatar -->
-										<div class="avatar avatar-xs flex-shrink-0">
-											<img class="avatar-img rounded-circle" src="assets/images/avatar/03.jpg" alt="avatar">
-										</div>
-										<!-- Info -->
-										<div class="ms-2">
-											<h6 class="mb-0 fw-light">Joan Wallace</h6>
-										</div>
-									</div>
-								</td>
-
-								<!-- Table data -->
-								<td>02 April 2020</td>
-
-								<!-- Table data -->
-								<td> <span class="badge text-bg-orange">All level</span> </td>
-
-								<!-- Table data -->
-								<td>$370</td>
-
-								<!-- Table data -->
-								<td>
-									<span class="badge bg-success bg-opacity-15 text-success">Live</span>
-								</td>
-
-								<!-- Table data -->
-								<td>
-									<a href="#" class="btn btn-sm btn-dark me-1 mb-1 mb-md-0">Edit</a>
-								</td>
-							</tr>
-
+						
+							
 						</tbody>
 						<!-- Table body END -->
 					</table>
@@ -503,6 +164,7 @@
 			<!-- Card body END -->
 
 			<!-- Card footer START -->
+		{{--
 			<div class="card-footer bg-transparent pt-0">
 				<!-- Pagination START -->
 				<div class="d-sm-flex justify-content-sm-between align-items-sm-center">
@@ -522,5 +184,6 @@
 				<!-- Pagination END -->
 			</div>
 			<!-- Card footer END -->
+		--}}	
 		</div>
 @endsection
