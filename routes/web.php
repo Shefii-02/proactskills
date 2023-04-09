@@ -67,11 +67,10 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth']], function(){
     Route::get('profile', 'FrontendController@profile')->name('profile');
-    Route::get('/payment', 'PaymentController@viewPayment');
+    
+    Route::get('razorpay', 'PaymentController@razorpay')->name('razorpay');
 	
-    Route::post('/orderid-generate', 'PaymentController@orderIdGenerate');
-	
-    Route::post('/payment', 'PaymentController@storePayment');
+    Route::post('razorpaypayment', 'PaymentController@payment')->name('payment');
 });
 
 Route::get('/{course_name}', 'FrontendController@course')->name('courseq');
