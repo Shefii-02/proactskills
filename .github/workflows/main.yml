@@ -15,5 +15,5 @@ jobs:
         username: ${{ secrets.ftp_username }}
         password: ${{ secrets.ftp_password }}
         protocol: ftps
-        port: 1234
+        port: 21
         server-dir : ./mysweetiepie.indigitalapi.com/
